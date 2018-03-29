@@ -1,0 +1,65 @@
+<h4>Formularios <small>template</small></h4>
+<hr>
+<form novalidate (ngSubmit)="guardar( forma )" #forma="ngForm">
+
+  <div>
+
+    <div class="form-group row"
+    [ngClass]="{ 'has-danger': ( nombre.errors?.required || nombre.errors?.minlength ) && nombre.dirty,
+                 'has-success': nombre.valid,
+                 'has-warning': !nombre.dirty }">
+      <label class="col-2 col-form-label">Nombre <b>*</b></label>
+      <div class="col-10">
+
+      <input class="form-control form-control-danger form-control-warning form-control-success" type="text" placeholder="Nombre" name="nombre" [(ngModel)]="usuario.nombre" #nombre="ngModel" required minlength="3">
+
+      <div class="form-control-feedback">
+          <small *ngIf="nombre.errors?.required && nombre.dirty"> Requerido. </small>
+          <small *ngIf="nombre.errors?.minlength"> Mínimo {{ nombre.errors.minlength.requiredLength }} caracteres. </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row"
+    [ngClass]="{ 'has-danger': apellido.errors?.required && apellido.dirty,
+                 'has-success': apellido.valid,
+                 'has-warning': !apellido.dirty }">
+      <label class="col-2 col-form-label">Apellido <b>*</b></label>
+      <div class="col-10">
+
+        <input class="form-control form-control-danger form-control-warning form-control-success" type="text" placeholder="Apellido" name="apellido" [(ngModel)]="usuario.apellido" #apellido="ngModel" required>
+        <div class="form-control-feedback">
+          <small *ngIf="apellido.errors?.required && apellido.dirty"> Requerido. </small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form-group row"
+  [ngClass]="{ 'has-danger': ( email.errors?.required || email.errors?.pattern ) && email.dirty,
+               'has-success': email.valid,
+               'has-warning': !email.dirty }">
+    <label class="col-2 col-form-label">Correo <b>*</b></label>
+    <div class="col-10">
+
+      <input class="form-control form-control-danger form-control-warning form-control-success" type="email" placeholder="Correo electrónico" name="email" [(ngModel)]="usuario.email" #email="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+      <div class="form-control-feedback">
+        <small *ngIf="email.errors?.required && email.dirty"> Requerido. </small>
+        <small *ngIf="email.errors?.pattern"> Formato no válido. </small>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label class="col-2 col-form-label">&nbsp;</label>
+    <div class="input-group col-md-8">
+      <button [disabled]="!forma.valid" type="submit" class="btn btn-outline-primary" [ngClass]="{ 'pointer': forma.valid }">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
